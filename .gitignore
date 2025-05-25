@@ -83,3 +83,4 @@ modules/
 /plantuml
 /pas
 .idea
+__pycache__
