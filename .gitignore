@@ -84,3 +84,4 @@ modules/
 /pas
 .idea
 __pycache__
+*.pas

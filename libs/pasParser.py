@@ -103,6 +103,11 @@ def parse_all_pas_files(directory):
 
     return df_classes, df_members
 
-def read_pas_files(directory: str):
-    df_clases, df_members = parse_all_pas_files(directory)
-    return df_clases, df_members
+def read_pas_files(path: str):
+    if os.path.isdir(path):
+        df_classes, df_members = parse_all_pas_files(path)
+    else:
+        list_classes, list_members = parse_pas_file(path)
+        df_classes = pd.DataFrame(list_classes)
+        df_members = pd.DataFrame(list_members)
+    return df_classes, df_members

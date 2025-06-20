@@ -10,19 +10,23 @@ def main():
         print("Usage: python main.py <input.pas> <output.puml>")
         return
 
-    input_dir = os.path.abspath(sys.argv[1])
-    output_dir = os.path.abspath(sys.argv[2])
+    input = os.path.abspath(sys.argv[1])
+    output = os.path.abspath(sys.argv[2])
 
     print("Usage: python pas-files to plantuml parser.")
-    print(f"input:  {input_dir}")
-    print(f"output: {output_dir} ")
+    print(f"input:  {input}")
+    print(f"output: {output} ")
 
-    df_classes, df_members = read_pas_files(input_dir)
+    df_classes, df_members = read_pas_files(input)
     # print(df_classes.head().to_string())
     # print(df_members.head().to_string())
     plantuml_text = dataframes_to_plantuml(df_classes, df_members)
 
-    output_file = os.path.join(output_dir, "result.puml")
+    if os.path.isfile(input):
+        basename = os.path.splitext(os.path.basename(input))[0]
+        output_file = os.path.join(output, basename + ".puml")
+    else:
+        output_file = os.path.join(output, "all_results.puml")
 
     with open(output_file, 'w', encoding='utf-8') as f:
         f.write(plantuml_text)
